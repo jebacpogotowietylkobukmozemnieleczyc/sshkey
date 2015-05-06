@@ -4,18 +4,16 @@
 #include <QQmlEngine>
 #include <QQuickWindow>
 #include <QSurfaceFormat>
-#include "keygenerator.hpp"
+#include "newton.hpp"
 
-// Main wrapper program.
-// Special handling is needed when using Qt Quick Controls for the top window.
-// The code here is based on what qmlscene does.
+
 
 int main(int argc, char ** argv)
 {
     QApplication app(argc, argv);
 
-    // Register our component type with QML.
-    qmlRegisterType<KeyGenerator>("com.ics.demo", 1, 0, "KeyGenerator");
+
+    qmlRegisterType<Newton>("com.ean.newton", 1, 0, "Newton");
 
     int rc = 0;
 
