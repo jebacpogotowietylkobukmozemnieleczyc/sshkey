@@ -172,8 +172,8 @@ void Newton::generateResult(QString x,QString mit,QString eps)
     int state = 0;
     double fx = 0;
 
-    //long double nx = std::stod(x.toStdString());
-    long double nx = readLD(x.toStdString());
+    long double nx = std::stod(x.toStdString());
+    //long double nx = readLD(x.toStdString());
     int nmit = std::stoi(mit.toStdString());
     double neps = std::stod(eps.toStdString());
 

@@ -3,7 +3,7 @@
 #include "keygenerator.hpp"
 
 KeyGenerator::KeyGenerator()
-    : _type("rsa"), _types{"dsa", "ecdsa", "rsa", "rsa1"}
+
 {
 }
 
@@ -11,27 +11,21 @@ KeyGenerator::~KeyGenerator()
 {
 }
 
-QString KeyGenerator::type()
+QString KeyGenerator::x()
 {
-    return _type;
+    return _x;
 }
 
-void KeyGenerator::setType(const QString &t)
+void KeyGenerator::setX(const QString &t)
 {
-    // Check for valid type.
-    if (!_types.contains(t))
-        return;
 
-    if (t != _type) {
-        _type = t;
-        emit typeChanged();
+    if (t != _x) {
+        _x = t;
+        emit xChanged();
     }
 }
 
-QStringList KeyGenerator::types()
-{
-    return _types;
-}
+
 
 QString KeyGenerator::filename()
 {
@@ -46,40 +40,34 @@ void KeyGenerator::setFilename(const QString &f)
     }
 }
 
-QString KeyGenerator::passphrase()
+QString KeyGenerator::mfunction()
 {
-    return _passphrase;
+    return _mfunction;
 }
 
-void KeyGenerator::setPassphrase(const QString &p)
+void KeyGenerator::setMfunction(const QString &p)
 {
-    if (p != _passphrase) {
-        _passphrase = p;
-        emit passphraseChanged();
+    if (p != _mfunction) {
+        _mfunction = p;
+        emit mfunctionChanged();
     }
 }
 
-void KeyGenerator::generateKey()
+void KeyGenerator::generateResult(QString x)
 {
+
+    std::string
+
     // Sanity check on arguments
-    if (_type.isEmpty() or _filename.isEmpty() or
-        (_passphrase.length() > 0 and _passphrase.length() < 5)) {
-        emit keyGenerated(false);
+    /*
+    if (_x.isEmpty() or _filename.isEmpty() or
+        (_mfunction.length() > 0 and _mfunction.length() < 5)) {
+        emit resultGenerated(false,"0");
         return;
     }
 
-    // Remove key file if it already exists
-    if (QFile::exists(_filename)) {
-        QFile::remove(_filename);
-    }
+    */
+    emit resultGenerated(true,);
 
-    // Execute ssh-keygen -t type -N passphrase -f keyfileq
-    QProcess *proc = new QProcess;
-    QString prog = "ssh-keygen";
-    QStringList args{"-t", _type, "-N", _passphrase, "-f", _filename};
-    proc->start(prog, args);
-    proc->waitForFinished();
-    emit keyGenerated(proc->exitCode() == 0);
-    delete proc;
 }
 
