@@ -22,7 +22,18 @@ ApplicationWindow {
         x: 10
         y: 10
 
-        // Key x
+        // Key
+        RowLayout {
+        Label {
+            text: qsTr("Arytmetyka:")
+        }
+        ComboBox {
+            id: combobox
+            Layout.fillWidth: true
+            model: newton.types
+            currentIndex: 0
+        }
+    }
 
 
         // Filename
@@ -54,14 +65,32 @@ ApplicationWindow {
 
         }
 
+        // mdfunction
+        RowLayout {
+            Label {
+                text: qsTr("Pochodna funkcja:")
+            }
+            TextField {
+                id: mdfunction
+                Layout.fillWidth: true
+                onTextChanged: updateStatusBar()
+            }
+
+        }
         // X
         RowLayout {
             Label {
-                text: qsTr("X:")
+                text: qsTr("x:")
             }
             TextField {
                 id: x
                 text: qsTr("1")
+                Layout.fillWidth: true
+                onTextChanged: updateStatusBar()
+            }
+            TextField {
+                id: x2
+                text: qsTr("")
                 Layout.fillWidth: true
                 onTextChanged: updateStatusBar()
             }
@@ -125,8 +154,10 @@ ApplicationWindow {
         filename: filename.text
         mfunction: mfunction.text
         x: x.text
+        x2: x2.text
         mit:mit.text
         eps:eps.text
+        type:combobox.currentText
         onResultGenerated: {
             //if (success) {
                 status.text = qsTr('<font color="green">Wynik: </font>'+result+'<br />
@@ -140,21 +171,33 @@ ApplicationWindow {
     }
 
     function updateStatusBar() {
-       /*
-        if (mfunction.text != confirm.text) {
-            status.text = qsTr('<font color="red">Pass phrase does not match.</font>')
+
+        if (mfunction.text == "") {
+            status.text = qsTr('<font color="red">Pole funkcji jest puste.</font>')
             generate.enabled = false
-        } else if (mfunction.text.length > 0 && mmfunction.text.length < 5) {
-            status.text = qsTr('<font color="red">Pass phrase too short.</font>')
+        } else if (mdfunction.text == "") {
+            status.text = qsTr('<font color="red">Pole pochodnej funkcji jest puste.</font>')
             generate.enabled = false
         } else if (filename.text == "") {
-            status.text = qsTr('<font color="red">Enter a filename.</font>')
+            status.text = qsTr('<font color="red">Pole nazwy pliku jest puste.</font>')
+            generate.enabled = false
+        } else if (x.text == "") {
+            status.text = qsTr('<font color="red">Pole x jest puste.</font>')
+            generate.enabled = false
+        } else if (eps.text == "") {
+            status.text = qsTr('<font color="red">Pole eps jest puste.</font>')
+            generate.enabled = false
+        } else if (mit.text == "") {
+            status.text = qsTr('<font color="red">Pole mit jest puste.</font>')
+            generate.enabled = false
+        } else if (mit.text == "") {
+            status.text = qsTr('<font color="red">Pole mit jest puste.</font>')
             generate.enabled = false
         } else {
             status.text = ""
             generate.enabled = true
         }
-        */
+
     }
 
     Component.onCompleted: updateStatusBar()

@@ -3,7 +3,9 @@ TEMPLATE = app
 QT += qml quick widgets
 
 SOURCES += main.cpp \
-    newton.cpp
+    newton.cpp \
+    IntervalArithmetic.cpp \
+    Interval.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,4 +18,10 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    newton.hpp
+    newton.hpp \
+    Interval.h \
+    ErrorCode.h \
+    IntervalArithmetic.h \
+    Number.h
+
+LIBS += -lmpfr -lgmp
